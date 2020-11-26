@@ -37,6 +37,25 @@
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        @guest
+                        <li class="nav-item">
+                            <a class="dropdown {{ request()->is('login') ? 'active' : '' }} nav-link" href="/login"> <i class="far fa-user mr-1" href="/login" type="button" onclick="event.preventDefault(); location.href='{{ url('login') }}';"></i>
+                                Login/Register
+                            </a>
+                        </li>
+                        @endguest
+
+                        @auth
+                        <li class="nav-item">
+                            <form action="{{ url('logout') }}" method="POST">
+                                @csrf
+                                <button href="{{ url('logout') }}" class="nav-link" type="submit" style="background-color: transparent; border-width: 0px">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+
+                        @endauth
                     </ul>
 
                     <ul class="nav-shop">

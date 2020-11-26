@@ -14,10 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index');
+Route::resource('Ckeditor', 'CkeditorController');
+Route::post('Ckeditor/upload', 'CkeditorController@upload')->name('ckeditor.upload');
 
 Route::prefix('admin')
     ->namespace('Admin')
+    ->middleware(['auth', 'admin'])
     ->group(function () {
         Route::get('/', 'DashboardController@index')
             ->name('dashboard');
+
+        Route::resource('blog', 'BlogController');
+        Route::resource('blog-categories', 'BlogCategoryController');
     });
+
+Auth::routes(['verify' => true]);
