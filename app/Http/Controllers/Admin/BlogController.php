@@ -37,6 +37,13 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate([
+            'blog_categories_id' => 'required|integer|exists:blog_categories,id',
+            'title' => 'required|max:255',
+            'image' => 'required|image',
+            'author' => 'required',
+            'description' => 'required'
+        ]);
         $data = $request->all();
         $data['slug'] = Str::slug($request->title);
         $data['image'] = $request->file('image')->store(
@@ -57,6 +64,8 @@ class BlogController extends Controller
      */
     public function show($id)
     {
+        $item = Blog::find($id);
+        return view('pages.admin.blog.show', ['item' => $item]);
     }
 
     /**
@@ -67,6 +76,12 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
+        $item = Blog::findOrFail($id);
+        $categories = BlogCategory::all();
+        return view('pages.admin.blog.edit', [
+            'item' => $item,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -78,6 +93,35 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $image  = $request->file('image');
+        if ($image != '') {
+            request()->validate([
+                'blog_categories_id' => 'required|integer|exists:blog_categories,id',
+                'title' => 'required|max:255',
+                'image' => 'required|image',
+                'author' => 'required',
+                'description' => 'required'
+            ]);
+            $data = $request->all();
+            $data['slug'] = Str::slug($request->title);
+            $data['image'] = $request->file('image')->store(
+                'assets/blog',
+                'public'
+            );
+        } else {
+            request()->validate([
+                'blog_categories_id' => 'required|integer|exists:blog_categories,id',
+                'title' => 'required|max:255',
+                'author' => 'required',
+                'description' => 'required'
+            ]);
+            $data = $request->all();
+            $data['slug'] = Str::slug($request->title);
+        }
+
+        $item = Blog::findOrFail($id);
+        $item->update($data);
+        return redirect()->route('blog.index');
     }
 
     /**
@@ -88,5 +132,8 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
+        $item = Blog::findOrFail($id);
+        $item->delete();
+        return redirect()->route('blog.index');
     }
 }

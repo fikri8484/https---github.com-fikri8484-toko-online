@@ -38,6 +38,12 @@ class BlogCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate([
+            'categories' => 'required|max:255',
+            'image' => 'required|image',
+            'description' => 'required'
+        ]);
+
         $data = $request->all();
         $data['slug'] = Str::slug($request->categories);
         $data['image'] = $request->file('image')->store(
@@ -84,12 +90,30 @@ class BlogCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $myData = BlogCategory::findOrFail($id);
+        $image  = $request->file('image');
+        if ($image != '') {
+            request()->validate([
+                'categories' => 'required|max:255',
+                'image' => 'required|image',
+                'description' => 'required'
+            ]);
+            $data = $request->all();
+            $data['slug'] = Str::slug($request->categories);
+            $data['image'] = $request->file('image')->store(
+                'assets/blog-categories',
+                'public'
+            );
+        } else {
+            request()->validate([
+                'categories' => 'required|max:255',
+                'description' => 'required'
+            ]);
+            $data = $request->all();
+            $data['slug'] = Str::slug($request->categories);
+        }
 
-        $myData->tag = $request->get('categories');
-
-        $myData->update();
-
+        $item = BlogCategory::findOrFail($id);
+        $item->update($data);
         return redirect()->route('blog-categories.index');
     }
 

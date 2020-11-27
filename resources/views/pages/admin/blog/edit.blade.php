@@ -6,7 +6,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Edit Kegiatan</h1>
+        <h1 class="h3 mb-0 text-gray-800">Edit Blog {{$item->title}}</h1>
     </div>
 
     @if ($errors->any())
@@ -21,16 +21,16 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <form action="{{ route('activity.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('blog.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                    <label for="activity_tags_id">Kategori</label>
-                    <select name="activity_tags_id" required class="form-control">
-                        <option value="{{ $item->activity_tags_id }}">Silahkan Pilih Jika Ingin Mengganti</option>
-                        @foreach ($activity_tags as $activity_tag)
-                        <option value="{{ $activity_tag->id }}">
-                            {{ $activity_tag->tag }}
+                    <label for="blog_categories_id">Kategori</label>
+                    <select name="blog_categories_id" required class="form-control">
+                        <option value="{{ $item->blog_categories_id }}">{{$item->blog_category->categories}}</option>
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">
+                            {{ $category->categories }}
                         </option>
                         @endforeach
                     </select>
@@ -40,12 +40,12 @@
                     <input type="text" class="form-control" name="title" placeholder="Title" value="{{ $item->title }}">
                 </div>
                 <div class="form-group">
-                    <label for="time">Waktu Pembuatan</label>
-                    <input type="date" class="form-control" name="time" placeholder="time" value="{{ $item->time }}">
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control" name="image" placeholder="Image" value="{{ Storage::url($item->image) }}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="image">Image (Bisa input lebih dari 1 foto)</label>
-                    <input type="file" class="form-control" name="image" placeholder="Image" multiple class="form-control" required autocomplete="off">
+                    <label for="author">Title</label>
+                    <input type="text" class="form-control" name="author" placeholder="Author" value="{{ $item->author }}">
                 </div>
                 <div class="form-group">
                     <label for="description">Deskripsi</label>
@@ -70,6 +70,4 @@
         filebrowserUploadMethod: 'form'
     });
 </script>
-
-
 @endpush

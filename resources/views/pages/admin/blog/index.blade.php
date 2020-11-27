@@ -30,30 +30,24 @@
                                 <thead>
                                     <tr>
                                         <th style="max-width: 10px;">No</th>
-                                        <th style="max-width: 70px;">Judul</th>
+                                        <th style="max-width: 40px;">Judul</th>
                                         <th>Kategori</th>
                                         <th>Penulis</th>
-                                        <th style="max-width: 70px;">tgl Pembuatan</th>
                                         <th>Foto</th>
                                         <th style="max-width: 250px;">Deskripsi</th>
                                         <th style="max-width: 150px;">Aksi</th>
                                     </tr>
                                 </thead>
 
-
-
-
                                 <tbody>
                                     <?php $i = 1;
                                     ?>
                                     @foreach($blog as $a)
-
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $a->title }}</td>
                                         <td>{{ $a->blog_category->categories }}</td>
                                         <td>{{ $a->author }}</td>
-                                        <td>{{ $a->created_at }}</td>
                                         <td>
                                             <img src="{{ Storage::url($a->image) }}" alt="" style="width: 150px" class="img-thumbnail">
                                         </td>
@@ -71,7 +65,6 @@
                                                 <button class="btn btn-danger">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
-
                                             </form>
                                         </td>
                                     </tr>
@@ -80,14 +73,10 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
-
     </div> <!-- container -->
-
 </div> <!-- content -->
 
 @endsection

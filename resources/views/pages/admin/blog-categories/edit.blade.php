@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     <label for="image">Image</label>
-                    <input type="file" class="form-control" name="image" placeholder="Image" multiple class="form-control" required autocomplete="off">
+                    <input type="file" class="form-control" name="image" placeholder="Image" value="{{ Storage::url($item->image) }}" class="form-control">
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">
