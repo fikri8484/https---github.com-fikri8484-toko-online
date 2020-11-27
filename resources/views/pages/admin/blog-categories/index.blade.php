@@ -9,7 +9,9 @@
 
         <div class="d-sm-flex align-items-center justify-content-between mb-3 mt-2">
             <h1 class="h3 mb-0 text-gray-800">Kategori Blog</h1>
-            .
+            <a href="{{ route('blog-categories.create') }}" class="btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Kategori
+            </a>
         </div>
 
         <div class="row">

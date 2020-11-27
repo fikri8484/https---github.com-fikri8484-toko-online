@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\BlogCategory;
 use App\Models\Blog;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class BlogCategoryController extends Controller
@@ -52,6 +53,7 @@ class BlogCategoryController extends Controller
         );
 
         BlogCategory::create($data);
+        Alert::success('Sukses', 'Selamat Data Berhasil Di Input');
         return redirect()->route('blog.create');
     }
 
@@ -114,6 +116,7 @@ class BlogCategoryController extends Controller
 
         $item = BlogCategory::findOrFail($id);
         $item->update($data);
+        Alert::success('Sukses', 'Selamat Data Berhasil Diubah');
         return redirect()->route('blog-categories.index');
     }
 
