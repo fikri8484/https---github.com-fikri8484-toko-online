@@ -13,7 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')
+    ->name('home');
+
+Route::get('/blog', 'BlogController@index')
+    ->name('blog');
+
+Route::get('/blog/{slug}', 'BlogController@show')
+    ->name('detail-blog');
+
 Route::resource('Ckeditor', 'CkeditorController');
 Route::post('Ckeditor/upload', 'CkeditorController@upload')->name('ckeditor.upload');
 
