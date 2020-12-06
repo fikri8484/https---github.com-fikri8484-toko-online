@@ -70,10 +70,30 @@
                         </div>
                     </article>
                     @endforeach
-                    <div class="d-flex justify-content-center">
+                    <nav class="blog-pagination justify-content-center d-flex">
+
+
+
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">
+                                    <span class="lnr lnr-chevron-left"></span>
+                                </span>
+                            </a>
+                        </li>
                         {!! $blog->links() !!}
-                    </div>
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="lnr lnr-chevron-right"></span>
+                                </span>
+                            </a>
+                        </li>
+                    </nav>
+
+
                 </div>
+
             </div>
 
             <div class="col-lg-4">
@@ -174,6 +194,7 @@
         </div>
     </div>
 </section>
+
 <!--================Blog Area =================-->
 
 <!--================Instagram Area =================-->
